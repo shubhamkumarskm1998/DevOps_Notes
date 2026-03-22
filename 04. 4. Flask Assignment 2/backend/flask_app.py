@@ -14,18 +14,6 @@ collection=db['flask_tutorial']
 
 app = Flask(__name__,template_folder="../frontend/templates")
 
-@app.route("/submit",methods=["POST"])
-def submit():
-    try:
-        form_data = dict(request.form)
-        # Insert into MongoDB
-        collection.insert_one(form_data)
-        # Redirect on success
-        return redirect(url_for("success"))
-    except Exception as e:
-        # Show error on same page
-        return render_template("success.html", error=str(e))
-
 @app.route("/view")
 def view():
     data=collection.find()
